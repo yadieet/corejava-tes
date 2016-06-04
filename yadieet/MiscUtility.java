@@ -18,6 +18,7 @@
 package yadieet;
 
 import java.io.PrintStream;
+import java.util.Random;
 
 /**
  * Created by yadieet on 31/05/16.
@@ -25,6 +26,8 @@ import java.io.PrintStream;
 public enum MiscUtility
 {
     ;
+
+    public final static Random random = new Random(System.nanoTime());
 
     MiscUtility()
     {
@@ -61,6 +64,16 @@ public enum MiscUtility
     public static void printStackTrace( Thread thread, Throwable throwable )
     {
         printStackTrace(System.err, thread, throwable);
+    }
+
+    public static String getRandomNumber( int length )
+    {
+        StringBuilder stringBuilder = new StringBuilder(length);
+        int i = random.nextInt(10);
+        stringBuilder.append(i == 0 ? 1 : i);
+        for (int n = 1; n < length; n++)
+            stringBuilder.append(random.nextInt(10));
+        return stringBuilder.toString();
     }
 
 }
