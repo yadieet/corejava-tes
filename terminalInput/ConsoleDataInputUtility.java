@@ -285,4 +285,17 @@ enum ConsoleDataInputUtility
         console.printf("> ");
         return console.readLine().trim();
     }
+
+    static boolean getBooleanAnswer( Console console, String questionStr, boolean defaultTrue, char trueChar, char falseChar )
+    {
+        console.printf(questionStr + System.lineSeparator());
+        return getBoolean(console, defaultTrue, trueChar, falseChar);
+    }
+
+    static boolean getBooleanAnswer( Console console, String questionStr, char trueChar, char falseChar )
+    {
+        console.printf(questionStr + System.lineSeparator());
+        return getBoolean(console, trueChar, falseChar);
+    }
+
 }

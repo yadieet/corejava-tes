@@ -77,13 +77,10 @@ final class App extends Application
             writer.println("Value : " + value);
         }
         writer.println();
-        {
-            writer.println("Do you want to continue [Y/n] ?");
-            boolean value = getBoolean(console, true, 'y', 'n');
-            writer.println("Value : " + (value ? "YES" : "NO"));
-            if (!value)
-                return;
-        }
+
+        if (!getBooleanAnswer(console, "Do you want to continue [Y/n] ?", true, 'y', 'n'))
+            return;
+
         writer.println();
         {
             writer.println("Please input a digit [0-9] !");
@@ -91,13 +88,10 @@ final class App extends Application
             writer.println("Value : " + value);
         }
         writer.println();
-        {
-            writer.println("Do you want to continue [y/N] ?");
-            boolean value = getBoolean(console, false, 'y', 'n');
-            writer.println("Value : " + (value ? "YES" : "NO"));
-            if (!value)
-                return;
-        }
+
+        if (!getBooleanAnswer(console, "Do you want to continue [y/N] ?", false, 'y', 'n'))
+            return;
+
         writer.println();
         {
             writer.println("Please input an [INTEGER][MIN:" + Integer.MIN_VALUE + ",MAX:" + Integer.MAX_VALUE + "] ! ");
@@ -105,13 +99,10 @@ final class App extends Application
             writer.println("Value : " + value);
         }
         writer.println();
-        {
-            writer.println("Do you want to continue [y/n] ?");
-            boolean value = getBoolean(console, 'y', 'n');
-            writer.println("Value : " + (value ? "YES" : "NO"));
-            if (!value)
-                return;
-        }
+
+        if (!getBooleanAnswer(console, "Do you want to continue [y/n] ?", 'y', 'n'))
+            return;
+
         writer.println();
         {
             int minValue = -1000;
@@ -121,13 +112,10 @@ final class App extends Application
             writer.println("Value : " + value);
         }
         writer.println();
-        {
-            writer.println("Do you want to continue [y/N] ?");
-            boolean value = getBoolean(console, false, 'y', 'n');
-            writer.println("Value : " + (value ? "YES" : "NO"));
-            if (!value)
-                return;
-        }
+
+        if (!getBooleanAnswer(console, "Do you want to continue [y/N] ?", false, 'y', 'n'))
+            return;
+
         writer.println();
         {
             writer.println("Please input a [LONG][MIN:" + Long.MIN_VALUE + ",MAX:" + Long.MAX_VALUE + "] ! ");
@@ -135,13 +123,10 @@ final class App extends Application
             writer.println("Value : " + value);
         }
         writer.println();
-        {
-            writer.println("Do you want to continue [y/N] ?");
-            boolean value = getBoolean(console, false, 'y', 'n');
-            writer.println("Value : " + (value ? "YES" : "NO"));
-            if (!value)
-                return;
-        }
+
+        if (!getBooleanAnswer(console, "Do you want to continue [y/N] ?", false, 'y', 'n'))
+            return;
+
         writer.println();
         {
             writer.println("Please input a [FLOATINGPOINT] !");
@@ -149,13 +134,10 @@ final class App extends Application
             writer.println("Value : " + value);
         }
         writer.println();
-        {
-            writer.println("Do you want to continue [y/N] ?");
-            boolean value = getBoolean(console, false, 'y', 'n');
-            writer.println("Value : " + (value ? "YES" : "NO"));
-            if (!value)
-                return;
-        }
+
+        if (!getBooleanAnswer(console, "Do you want to continue [y/N] ?", false, 'y', 'n'))
+            return;
+
         writer.println();
         {
             BigDecimal minValue = new BigDecimal("-1000.0");
@@ -165,13 +147,10 @@ final class App extends Application
             writer.println("Value : " + value);
         }
         writer.println();
-        {
-            writer.println("Do you want to continue [y/N] ?");
-            boolean value = getBoolean(console, false, 'y', 'n');
-            writer.println("Value : " + (value ? "YES" : "NO"));
-            if (!value)
-                return;
-        }
+
+        if (!getBooleanAnswer(console, "Do you want to continue [y/N] ?", false, 'y', 'n'))
+            return;
+
         writer.println();
         {
             writer.println("Please input a [BIGINTEGER] !");
@@ -179,26 +158,20 @@ final class App extends Application
             writer.println("Value : " + value);
         }
         writer.println();
-        {
-            writer.println("Do you want to continue [y/N] ?");
-            boolean value = getBoolean(console, false, 'y', 'n');
-            writer.println("Value : " + (value ? "YES" : "NO"));
-            if (!value)
-                return;
-        }
+
+        if (!getBooleanAnswer(console, "Do you want to continue [y/N] ?", false, 'y', 'n'))
+            return;
+
         writer.println();
         {
             writer.println("Please input any [STRING] !");
             writer.println("Value : " + getString(console, null));
         }
         writer.println();
-        {
-            writer.println("Do you want to continue [y/N] ?");
-            boolean value = getBoolean(console, false, 'y', 'n');
-            writer.println("Value : " + (value ? "YES" : "NO"));
-            if (!value)
-                return;
-        }
+
+        if (!getBooleanAnswer(console, "Do you want to continue [y/N] ?", false, 'y', 'n'))
+            return;
+
         writer.println();
         {
             writer.println("Please input a [DATE:YYYY/MM/DD] !");
@@ -206,6 +179,7 @@ final class App extends Application
             DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy");
             writer.println("Value : " + datetimeFormatter.format(localDate));
         }
+        writer.println();
     }
     
     @Override
