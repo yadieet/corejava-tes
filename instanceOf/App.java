@@ -42,12 +42,12 @@ final class App extends Application
     {
         Object o = new A();
 
-        System.out.println("o instanceof Object == " + (o instanceof Object));
-        System.out.println("o instanceof A == " + (o instanceof A));
-        System.out.println("o instanceof B == " + (o instanceof B));
-        System.out.println("o instanceof C == " + (o instanceof C));
-        System.out.println("o instanceof D == " + (o instanceof D));
-        System.out.println("o instanceof E == " + (o instanceof E));
+        System.out.println("o instanceof Object : " + (o instanceof Object) + ", " + Object.class.isInstance(o));
+        System.out.println("o instanceof A : " + (o instanceof A) + ", " + A.class.isInstance(o));
+        System.out.println("o instanceof B : " + (o instanceof B) + ", " + B.class.isInstance(o));
+        System.out.println("o instanceof C : " + (o instanceof C) + ", " + C.class.isInstance(o));
+        System.out.println("o instanceof D : " + (o instanceof D) + ", " + D.class.isInstance(o));
+        System.out.println("o instanceof E : " + (o instanceof E) + ", " + E.class.isInstance(o));
     }
 
     @Override
