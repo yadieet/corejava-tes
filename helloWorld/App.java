@@ -54,9 +54,9 @@ final class App extends Application
     }
 
     @Override
-    public void uncaughtException( Thread thread, Throwable throwable )
+    public void uncaughtException( Thread t, Throwable e )
     {
-        MiscUtility.printStackTrace(thread, throwable);
+        MiscUtility.printStackTrace(t, e);
         forceExit(-1);
     }
 
