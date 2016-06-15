@@ -23,6 +23,8 @@ import yadieet.Terbilang;
 
 import java.math.BigInteger;
 
+import static yadieet.MiscUtility.random;
+
 /**
  * Created by yadieet on 04/06/16.
  */
@@ -40,6 +42,16 @@ final class App extends Application
         new App().start();
     }
 
+    private static String getRandomNumberString( int length )
+    {
+        StringBuilder stringBuilder = new StringBuilder(length);
+        int i = random.nextInt(10);
+        stringBuilder.append(i == 0 ? 1 : i);
+        for (int n = 1; n < length; n++)
+            stringBuilder.append(random.nextInt(10));
+        return stringBuilder.toString();
+    }
+
     @Override
     protected void init()
     {
@@ -47,9 +59,9 @@ final class App extends Application
         BigInteger bigInteger;
         for (int n = 0; n < 10; n++)
         {
-            bigInteger = new BigInteger(MiscUtility.getRandomNumber(MiscUtility.random.nextInt(maxDigit + 1)));
+            bigInteger = new BigInteger(getRandomNumberString(random.nextInt(maxDigit + 1)));
             System.out.println(bigInteger);
-            System.out.println(Terbilang.getText(bigInteger));
+            System.out.println(Terbilang.getText(bigInteger, true, true));
         }
     }
 

@@ -66,14 +66,4 @@ public enum MiscUtility
         printStackTrace(System.err, thread, throwable);
     }
 
-    public static String getRandomNumber( int length )
-    {
-        StringBuilder stringBuilder = new StringBuilder(length);
-        int i = random.nextInt(10);
-        stringBuilder.append(i == 0 ? 1 : i);
-        for (int n = 1; n < length; n++)
-            stringBuilder.append(random.nextInt(10));
-        return stringBuilder.toString();
-    }
-
 }

@@ -94,37 +94,37 @@ public final class Terbilang
     {
     }
 
-    public static String getText( BigInteger value, boolean rupiah )
+    public static String getText( BigInteger value, boolean rupiah, boolean period )
     {
-        return new Terbilang().toText(value, rupiah);
+        return new Terbilang().toText(value, rupiah, period);
     }
 
     public static String getText( BigInteger value )
     {
-        return getText(value, false);
+        return getText(value, false, false);
     }
 
-    public static String getText( long value, boolean rupiah )
+    public static String getText( long value, boolean rupiah, boolean period )
     {
-        return getText(BigInteger.valueOf(value), rupiah);
+        return getText(BigInteger.valueOf(value), rupiah, period);
     }
 
     public static String getText( long value )
     {
-        return getText(value, false);
+        return getText(value, false, false);
     }
 
-    public static String getText( int value, boolean rupiah )
+    public static String getText( int value, boolean rupiah, boolean period )
     {
-        return getText(BigInteger.valueOf(value), rupiah);
+        return getText(BigInteger.valueOf(value), rupiah, period);
     }
 
     public static String getText( int value )
     {
-        return getText(value, false);
+        return getText(value, false, false);
     }
 
-    private String toText( BigInteger value, boolean rupiah )
+    private String toText( BigInteger value, boolean rupiah, boolean period )
     {
         if (value == null)
             throw new NullPointerException("value");
@@ -142,6 +142,9 @@ public final class Terbilang
             result.append("rupiah");
         else
             result.deleteCharAt(result.length() - 1);
+
+        if (period)
+            result.append('.');
 
         result.setCharAt(0, Character.toUpperCase(result.charAt(0)));
 
