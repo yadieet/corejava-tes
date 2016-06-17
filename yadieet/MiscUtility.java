@@ -66,4 +66,37 @@ public enum MiscUtility
         printStackTrace(System.err, thread, throwable);
     }
 
+    public static boolean threadSleep( long millis )
+    {
+        try
+        {
+            Thread.sleep(millis);
+        }
+        catch( InterruptedException ignored )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean threadJoin( Thread thread, long millis )
+    {
+        try
+        {
+            thread.join(millis);
+        }
+        catch( InterruptedException ignored )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean threadJoin( Thread thread )
+    {
+        return threadJoin(thread, 0L);
+    }
+
 }
