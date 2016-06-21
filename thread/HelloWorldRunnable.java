@@ -35,13 +35,13 @@ final class HelloWorldRunnable implements Runnable //Separation of concerns
     @Override
     public void run()
     {
-        System.out.println(Thread.currentThread() + " : Started.");
+        System.out.println(Thread.currentThread().getName() + " : Started.");
 
         try
         {
             while (!sns.getAsBoolean())
             {
-                System.out.println(Thread.currentThread() + " : Hello World !");
+                System.out.println(Thread.currentThread().getName() + " : Hello World !");
                 Thread.sleep(333L);
             }
         }
@@ -49,7 +49,7 @@ final class HelloWorldRunnable implements Runnable //Separation of concerns
         {
         }
 
-        System.out.println(Thread.currentThread() + " : Exitting..");
+        System.out.println(Thread.currentThread().getName() + " : Exitting..");
     }
 
 }

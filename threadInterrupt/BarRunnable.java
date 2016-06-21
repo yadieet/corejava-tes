@@ -27,7 +27,7 @@ final class BarRunnable implements Runnable //Separation of concerns
     @Override
     public void run()
     {
-        System.out.println(Thread.currentThread() + " : Started.");
+        System.out.println(Thread.currentThread().getName() + " : Started.");
 
         try
         {
@@ -35,7 +35,7 @@ final class BarRunnable implements Runnable //Separation of concerns
 
             while (true) //for testing-purpose only
             {
-                System.out.println(Thread.currentThread() + " : " + (boo ? "Hello World" : "Hello Friends"));
+                System.out.println(Thread.currentThread().getName() + " : " + (boo ? "Hello World" : "Hello Friends"));
                 boo = !boo;
 
                 Thread.sleep(0L, 1);
@@ -45,7 +45,7 @@ final class BarRunnable implements Runnable //Separation of concerns
         {
         }
 
-        System.out.println(Thread.currentThread() + " : Exitting..");
+        System.out.println(Thread.currentThread().getName() + " : Exitting..");
     }
 
 }

@@ -42,7 +42,7 @@ final class App extends Application
     {
         for (int a = 0; a++ < 5; i++)
         {
-            System.out.println(Thread.currentThread() + " : " + i);
+            System.out.println(Thread.currentThread().getName() + " : " + i);
             MiscUtility.threadSleep(1000L);
         }
     }

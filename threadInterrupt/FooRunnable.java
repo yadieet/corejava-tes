@@ -27,14 +27,14 @@ final class FooRunnable implements Runnable //Separation of concerns
     @Override
     public void run()
     {
-        System.out.println(Thread.currentThread() + " : Started.");
+        System.out.println(Thread.currentThread().getName() + " : Started.");
 
         boolean boo = false;
 
         /*
         while (true)
         {
-            System.out.println(Thread.currentThread() + " : " + (boo ? "Hello World" : "Hello Friends"));
+            System.out.println(Thread.currentThread().getName() + " : " + (boo ? "Hello World" : "Hello Friends"));
             boo = !boo;
 
             //Not using static method 'Thread.interrupt', 'interrupt status' not cleared.
@@ -45,11 +45,11 @@ final class FooRunnable implements Runnable //Separation of concerns
 
         while (!Thread.currentThread().isInterrupted()) //Not using static method 'Thread.interrupt', 'interrupt status' not cleared.
         {
-            System.out.println(Thread.currentThread() + " : " + (boo ? "Hello World" : "Hello Friends"));
+            System.out.println(Thread.currentThread().getName() + " : " + (boo ? "Hello World" : "Hello Friends"));
             boo = !boo;
         }
 
-        System.out.println(Thread.currentThread() + " : Exitting..");
+        System.out.println(Thread.currentThread().getName() + " : Exitting..");
     }
 
 }

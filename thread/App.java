@@ -44,7 +44,7 @@ final class App extends Application
     @Override
     protected void init()
     {
-        Thread hfThread = new Thread(() -> System.out.println(Thread.currentThread() + " : Hello Friends !"));
+        Thread hfThread = new Thread(() -> System.out.println(Thread.currentThread().getName() + " : Hello Friends !"));
         hfThread.setDaemon(true);
         hfThread.start();
 
