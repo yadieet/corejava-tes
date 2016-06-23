@@ -20,7 +20,9 @@ package duration;
 import yadieet.Application;
 import yadieet.MiscUtility;
 
-import java.time.Duration;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
 /**
@@ -40,11 +42,8 @@ final class App extends Application
         new App().start();
     }
 
-    private static String getDurationString( long seconds )
+    private static String getDurationString( Duration duration )
     {
-        seconds = Math.abs(seconds);
-
-        Duration duration = Duration.ofSeconds(seconds);
         StringBuilder stringBuilder = new StringBuilder(40);
 
         long l = duration.toDays();
@@ -65,6 +64,87 @@ final class App extends Application
         return stringBuilder.toString();
     }
 
+    private static String getDurationString( long seconds )
+    {
+        return getDurationString(Duration.ofSeconds(Math.abs(seconds)));
+    }
+
+    private static void nextTest()
+    {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("y/M/d");
+        DateTimeFormatter datetimeFormatter = DateTimeFormatter.ofPattern("y/M/d HH:mm:ss");
+        DateTimeFormatter zonedDatetimeFormatter = DateTimeFormatter.ofPattern("y/M/d HH:mm:ss z (VV)");
+
+        System.out.println("---------------------------------------------");
+        {
+            LocalDate localDate1 = LocalDate.of(2015, 4, 22);
+            LocalDate localDate2 = LocalDate.of(2016, 6, 23);
+
+            //java.time.temporal.UnsupportedTemporalTypeException: Unsupported unit: Seconds
+            //Duration duration = Duration.between(localDate2, localDate1);
+
+            Period period = localDate1.until(localDate2); //or via Period.between(localDate1, localDate2);
+            period.normalized();
+
+            printOut(dateFormatter.format(localDate1), dateFormatter.format(localDate2)
+                , period.getYears() + " year " + period.getMonths() + " month " + period.getDays() + " day. (based on calendar)");
+
+            long nDay = localDate1.until(localDate2, ChronoUnit.DAYS);
+            printOut(dateFormatter.format(localDate1), dateFormatter.format(localDate2)
+                , nDay + " days. (based on calendar)");
+
+        }
+        System.out.println("---------------------------------------------");
+        {
+            LocalDateTime localDatetime1 = LocalDateTime.of(2015, 4, 22, 15, 30, 10);
+            LocalDateTime localDatetime2 = LocalDateTime.of(2016, 6, 23, 17, 32, 7);
+
+            Duration duration = Duration.between(localDatetime1, localDatetime2);
+            printOut(datetimeFormatter.format(localDatetime1), datetimeFormatter.format(localDatetime2)
+                , getDurationString(duration));
+
+            long nSecond = localDatetime1.until(localDatetime2, ChronoUnit.SECONDS);
+            printOut(datetimeFormatter.format(localDatetime1), datetimeFormatter.format(localDatetime2)
+                , getDurationString(nSecond));
+
+
+            long nDay = localDatetime1.until(localDatetime2, ChronoUnit.DAYS);
+            printOut(datetimeFormatter.format(localDatetime1), datetimeFormatter.format(localDatetime2)
+                , nDay + " days.");
+
+        }
+        System.out.println("---------------------------------------------");
+        {
+            ZoneId jakartaZoneId = ZoneId.of("Asia/Jakarta");
+            ZoneId tokyoZoneId = ZoneId.of("Asia/Tokyo");
+
+            ZonedDateTime zonedDatetime1 = LocalDateTime.of(2015, 4, 22, 15, 30, 10).atZone(jakartaZoneId);
+            ZonedDateTime zonedDatetime2 = LocalDateTime.of(2016, 6, 23, 17, 32, 7).atZone(tokyoZoneId);
+
+            System.out.println("                                                    "
+                + zonedDatetimeFormatter.format(zonedDatetime2.withZoneSameInstant(jakartaZoneId)));
+
+            Duration duration = Duration.between(zonedDatetime1, zonedDatetime2);
+            printOut(zonedDatetimeFormatter.format(zonedDatetime1), zonedDatetimeFormatter.format(zonedDatetime2)
+                , getDurationString(duration));
+
+            long nSecond = zonedDatetime1.until(zonedDatetime2, ChronoUnit.SECONDS);
+            printOut(zonedDatetimeFormatter.format(zonedDatetime1), zonedDatetimeFormatter.format(zonedDatetime2)
+                , getDurationString(nSecond));
+
+
+            long nDay = zonedDatetime1.until(zonedDatetime2, ChronoUnit.DAYS);
+            printOut(zonedDatetimeFormatter.format(zonedDatetime1), zonedDatetimeFormatter.format(zonedDatetime2)
+                , nDay + " days.");
+
+        }
+    }
+
+    private static void printOut( String a, String b, String c )
+    {
+        System.out.println("Between " + a + " until " + b + " : " + c);
+    }
+
     @Override
     protected void init()
     {
@@ -76,6 +156,8 @@ final class App extends Application
             seconds = random.nextInt(864001); //random-value max: 10 day
             System.out.println(seconds + " sec : " + getDurationString(seconds));
         }
+
+        nextTest();
     }
 
     @Override
