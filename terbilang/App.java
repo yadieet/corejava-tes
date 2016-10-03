@@ -61,7 +61,7 @@ final class App extends Application
         {
             bigInteger = new BigInteger(getRandomNumberString(random.nextInt(maxDigit + 1)));
             System.out.println(bigInteger);
-            System.out.println(Terbilang.getText(bigInteger, true, true));
+            System.out.println(Terbilang.getText(bigInteger, true));
         }
     }
 

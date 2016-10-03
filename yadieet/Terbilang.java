@@ -29,25 +29,25 @@ public final class Terbilang
 {
     public static final BigInteger MAX_VALUE = new BigInteger("999999999999999999999999999999999999");
 
-    private static final BigInteger[] valuelevel = {
-        new BigInteger("20"),
-        new BigInteger("10"),
-        new BigInteger("100"),
-        new BigInteger("1000"),
-        new BigInteger("1000000"),
-        new BigInteger("1000000000"),
-        new BigInteger("1000000000000"),
-        new BigInteger("1000000000000000"),
-        new BigInteger("1000000000000000000"),
-        new BigInteger("1000000000000000000000"),
-        new BigInteger("1000000000000000000000000"),
-        new BigInteger("1000000000000000000000000000"),
-        new BigInteger("1000000000000000000000000000000"),
-        new BigInteger("1000000000000000000000000000000000"),
+    private static final BigInteger[] VALUE_LEVEL = {
+        BigInteger.valueOf(20L),
+        BigInteger.valueOf(10L),
+        BigInteger.valueOf(100L),
+        BigInteger.valueOf(1000L),
+        BigInteger.valueOf(1000000L),
+        BigInteger.valueOf(1000000000L),
+        BigInteger.valueOf(1000000000000L),
+        BigInteger.valueOf(1000000000000000L),
+        BigInteger.valueOf(1000000000000000000L),
+           new BigInteger("1000000000000000000000"),
+           new BigInteger("1000000000000000000000000"),
+           new BigInteger("1000000000000000000000000000"),
+           new BigInteger("1000000000000000000000000000000"),
+           new BigInteger("1000000000000000000000000000000000"),
         //... (dst)
     };
 
-    private static final String[] textuallevel = {
+    private static final String[] VALUE_LEVEL_STRING = {
         null,
         "puluh ",
         "ratus ",
@@ -55,7 +55,7 @@ public final class Terbilang
         "juta, ",
         "milyar, ",
         "triliun, ",
-        "quadtriliun, ",
+        "quadriliun, ",
         "quintiliun, ",
         "sektiliun, ",
         "septiliun, ",
@@ -65,7 +65,7 @@ public final class Terbilang
         //... (dst)
     };
 
-    private static final String[] textualnumber = {
+    private static final String[] UNDER_TWENTY_STRING = {
         null,
         "satu ",
         "dua ",
@@ -94,37 +94,37 @@ public final class Terbilang
     {
     }
 
-    public static String getText( BigInteger value, boolean rupiah, boolean period )
+    public static String getText( BigInteger value, boolean rupiah )//, boolean period )
     {
-        return new Terbilang().toText(value, rupiah, period);
+        return new Terbilang().toText(value, rupiah);//, period);
     }
 
     public static String getText( BigInteger value )
     {
-        return getText(value, false, false);
+        return getText(value, false);//, false);
     }
 
-    public static String getText( long value, boolean rupiah, boolean period )
+    public static String getText( long value, boolean rupiah )//, boolean period )
     {
-        return getText(BigInteger.valueOf(value), rupiah, period);
+        return getText(BigInteger.valueOf(value), rupiah);//, period);
     }
 
     public static String getText( long value )
     {
-        return getText(value, false, false);
+        return getText(value, false);//, false);
     }
 
-    public static String getText( int value, boolean rupiah, boolean period )
+    public static String getText( int value, boolean rupiah )//, boolean period )
     {
-        return getText(BigInteger.valueOf(value), rupiah, period);
+        return getText(BigInteger.valueOf(value), rupiah);//, period);
     }
 
     public static String getText( int value )
     {
-        return getText(value, false, false);
+        return getText(value, false);//, false);
     }
 
-    private String toText( BigInteger value, boolean rupiah, boolean period )
+    private String toText( BigInteger value, boolean rupiah )//, boolean period )
     {
         if (value == null)
             throw new NullPointerException("value");
@@ -138,13 +138,16 @@ public final class Terbilang
         else
             letsGo(value);
 
+        if (result.charAt(result.length() - 2) == ',')
+            result.deleteCharAt(result.length() - 2);
+
         if (rupiah)
             result.append("rupiah");
         else
             result.deleteCharAt(result.length() - 1);
 
-        if (period)
-            result.append('.');
+        //if (period)
+        result.append('.');
 
         result.setCharAt(0, Character.toUpperCase(result.charAt(0)));
 
@@ -153,35 +156,38 @@ public final class Terbilang
 
     private void letsGo( BigInteger value )
     {
-        if (value.compareTo(valuelevel[0]) == -1)
+        if (value.compareTo(VALUE_LEVEL[0]) == -1)
         {
-            result.append(textualnumber[value.intValue()]);
+            result.append(UNDER_TWENTY_STRING[value.intValue()]);
             return;
         }
 
         /////////////////////////////////////////////////
 
-        int i = valuelevel.length;
-        while (value.compareTo(valuelevel[--i]) < 0);
+        int i = VALUE_LEVEL.length;
+        while (value.compareTo(VALUE_LEVEL[--i]) < 0)
+        {
+            ;
+        }
 
-        BigInteger[] temp = value.divideAndRemainder(valuelevel[i]);
+        BigInteger[] temp = value.divideAndRemainder(VALUE_LEVEL[i]);
 
         /////////////////////////////////////////////////
 
-        if (temp[0].compareTo(valuelevel[0]) == -1)
+        if (temp[0].compareTo(VALUE_LEVEL[0]) == -1)
         {
             int x = temp[0].intValue();
             if (x == 1 && (i == 2 || i == 3)) //No comment!
                 result.append("se");
             else
-                result.append(textualnumber[x]);
+                result.append(UNDER_TWENTY_STRING[x]);
         }
         else
             letsGo(temp[0]);
 
         /////////////////////////////////////////////////
 
-        result.append(textuallevel[i]);
+        result.append(VALUE_LEVEL_STRING[i]);
 
         /////////////////////////////////////////////////
 
